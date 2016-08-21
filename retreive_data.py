@@ -1,5 +1,6 @@
 from lxml import html
 import requests
+import csv
 
 page = requests.get('http://state.1keydata.com/state-electoral-votes.php')
 tree = html.fromstring(page.content)
@@ -31,5 +32,7 @@ for state_url in list_of_state_urls:
     population_per_state.append(get_state_population(current_state_tree))
     electoralvotes_per_state.append(get_state_electoralvotes(current_state_tree))
 
-for name,votes, population in zip(state_names, electoralvotes_per_state, population_per_state):
-    print name, votes, population
+with open('state_data.csv', 'wb') as csvfile:
+    state_writer = csv.writer(csvfile, delimiter = ',')
+    for name,votes, population in zip(state_names, electoralvotes_per_state, population_per_state):
+        state_writer.writerow( [name, population, votes])
