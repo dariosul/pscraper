@@ -7,7 +7,8 @@ tree = html.fromstring(page.content)
 
 state = tree.xpath("//table[@class ='content1']/tr/td/a/text()")
 state_pages =tree.xpath("//table[@class = 'content1']/tr/td/a/@href") #tree.xpath('//a/@href')
-state_names =tree.xpath("//table[@class = 'content1']/tr/td/a/text()") #tree.xpath('//a/@href')
+state_names =tree.xpath("//table[@class = 'content1']/tr/td/a/text()")
+state_names = [str(name) for name in state_names]
 
 BASE_URL = 'http://state.1keydata.com/'
 list_of_state_urls = [BASE_URL+link for link in state_pages[:50]]
